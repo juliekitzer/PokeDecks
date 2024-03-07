@@ -66,16 +66,16 @@
           </div>
         </div>
         <button class="addToDeck" id="bigbluebutton" onclick="getCard()">Add</button>
-        <button id="barbutton1">Normal</button>
+        <button id="barbutton1" onclick="isShiny ? toggleSprite(1) : null">Normal</button>
         <div id="barbuttons1">
           <p class="pokeName"></p>
         </div>
-        <button id="barbutton2">Shiny</button>
+        <button id="barbutton2" onclick="!isShiny ? toggleSprite(1) : null">Shiny</button>
         <div id="cross">
           <div id="leftcross" onclick="getNextPokemon(-1)">
             <div id="leftT"></div>
           </div>
-          <div id="topcross">
+          <div id="topcross" onclick="toggleSprite(2)">
             <div id="upT"></div>
           </div>
           <div id="rightcross" onclick="getNextPokemon(1)">
@@ -84,7 +84,7 @@
           <div id="midcross">
             <div id="midCircle"></div>
           </div>
-          <div id="botcross">
+          <div id="botcross" onclick="toggleSprite(2)">
             <div id="downT"></div>
           </div>
         </div>

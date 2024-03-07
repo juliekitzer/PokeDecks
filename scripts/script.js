@@ -1,4 +1,6 @@
-
+let sprites
+let isShiny = false
+let isFront = true
 
 //Function to grab pokemon information by pokedex ID, querySelector input by ID and append innerText to endpoint url
 async function getPokemonInfo(pokemonNumber) {
@@ -19,7 +21,8 @@ async function getPokemonInfo(pokemonNumber) {
     let convertedHeight = response.height / 10
     pokeWeight.innerHTML = `Weight: ${convertedWeight} kg`
     pokeHeight.innerHTML = `Height: ${convertedHeight} m`
-    pokePic.setAttribute('src', `${response.sprites.front_default}`)
+    sprites = response.sprites
+    pokePic.setAttribute('src', `${sprites.front_default}`)
     pokeNum.innerHTML = response.id
     console.log(response)
     if (response.types.length > 1) {
@@ -129,6 +132,8 @@ async function getPokemonDesc(nextPokemonNum) {
 function clearInput() {
   let pokemonID = document.querySelector('#input')
   pokemonID.innerHTML = ''
+  isShiny = false
+  isFront = true
 }
 function setGender(gen) {
   gender = gen;
@@ -185,4 +190,33 @@ function clickShinyColor() {
   document.getElementById("light-button-blue").classList.remove("off");
 }
 
-
+function toggleSprite(button) {
+  let pokePic = document.querySelector('.pokePic')
+  console.log(sprites)
+  switch(button) {
+    case 1:
+      if (!isShiny && isFront) {
+        pokePic.setAttribute('src', `${sprites.front_shiny}`)
+      } else if (!isShiny && !isFront) {
+        pokePic.setAttribute('src', `${sprites.back_shiny}`)
+      } else if (isShiny && isFront) {
+        pokePic.setAttribute('src', `${sprites.front_default}`)
+      } else if (isShiny && !isFront){
+        pokePic.setAttribute('src', `${sprites.back_default}`)
+      }
+      isShiny = !isShiny
+      break
+    case 2:
+      if (!isShiny && isFront) {
+        pokePic.setAttribute('src', `${sprites.back_default}`)
+      } else if (!isShiny && !isFront) {
+        pokePic.setAttribute('src', `${sprites.front_default}`)
+      } else if (isShiny && isFront) {
+        pokePic.setAttribute('src', `${sprites.back_shiny}`)
+      } else if (isShiny && !isFront) {
+        pokePic.setAttribute('src', `${sprites.front_shiny}`)
+      }
+      isFront = !isFront
+      break
+  }
+}
